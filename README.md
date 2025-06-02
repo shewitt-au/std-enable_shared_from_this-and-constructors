@@ -22,7 +22,7 @@ construction on demand.
 Another issue addressed is with `std::make_shared`. This function requires that
 the constructor be public. If we’re making factory methods for creation, we may
 want to make the constructors non-public to stop misuse. In this case the code
-uses `std::shared_ptr’s constructor` and a `new` call. The function that calls new
+uses `std::shared_ptr`’s constructor and a `new` call. The function that calls new
 can be made a `friend` of the class to grant it access. We lose the advantages of
 using `std::make_shared` but gain protection against incorrect object
 instantiation.
