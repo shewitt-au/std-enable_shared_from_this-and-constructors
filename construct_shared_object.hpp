@@ -1,8 +1,11 @@
 // construct_shared_object.hpp
 //
+// Written by Stephen Hewitt in 2025
+// Link to GitHub repo: https://github.com/shewitt-au/std-enable_shared_from_this-and-constructors
 
 #pragma once
 /*
+
 The motivation for this code is issues with std::shared_ptr and
 std::enable_shared_from_this.
 
