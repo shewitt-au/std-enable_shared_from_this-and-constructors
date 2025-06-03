@@ -33,7 +33,6 @@ using std::make_shared but gain protection against incorrect object
 instantiation.
 */
 
-#include <iostream>
 #include <concepts>
 #include <memory>
 
