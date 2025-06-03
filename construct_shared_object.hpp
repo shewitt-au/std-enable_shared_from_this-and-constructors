@@ -33,8 +33,8 @@ using std::make_shared but gain protection against incorrect object
 instantiation.
 */
 
-#include <concepts>
 #include <memory>
+#include <utility>
 
 #define BEFRIEND_SHARED_OBJECT_CREATOR \
  template <typename T, typename... Args> \
@@ -64,27 +64,23 @@ namespace shared_object_creator {
             return std::shared_ptr<T>(new T(std::forward<Args>(args)...));
         }
 
-        // Used to detect if the class has a post_construct method with the same
-        // arguments as the constructor.
-        template<typename T, typename... Args>
-        concept HasPostConstruct = requires(T obj, Args... args) {
-            obj.post_construct(args...);
-        };
-
     } // namespace impl
 
     // The actual creation functions.
 
     template<typename T, typename... Args>
-    std::shared_ptr<T> construct_shared_object(Args&&... args) {
-        return impl::shared_ptr_creator<T>(std::forward<Args>(args)...);
+        requires requires(T t, Args&&... args) {
+            t.post_construct(std::forward<Args>(args)...);
     }
-
-    template <impl::HasPostConstruct T, typename... Args>
     std::shared_ptr<T> construct_shared_object(Args&&... args) {
-        std::shared_ptr<T> p = impl::shared_ptr_creator<T>(std::forward<Args>(args)...);
+        auto p = impl::shared_ptr_creator<T>(std::forward<Args>(args)...);
         p->post_construct(std::forward<Args>(args)...);
         return p;
+    }
+
+    template<typename T, typename... Args>
+    std::shared_ptr<T> construct_shared_object(Args&&... args) {
+        return impl::shared_ptr_creator<T>(std::forward<Args>(args)...);
     }
 
 } // namespace shared_object_creator
