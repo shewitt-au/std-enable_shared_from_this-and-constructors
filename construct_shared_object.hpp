@@ -48,7 +48,7 @@ namespace shared_object_creator {
         /*
         shared_ptr_creator is responsible for actually creating the std::shared_ptr.
         As described in this header's opening comment, it decides whether to use
-        std::make_shared or std::shared_ptr's constructor and new based on the
+        std::make_shared's or std::shared_ptr's constructor and new based on the
         accessibility the the class' constructor. If you wish to make the constructors
         non-public make this a friend. The BEFRIEND_SHARED_OBJECT_CREATOR macro can be
         used to do this tersely.
