@@ -12,7 +12,7 @@ std::enable_shared_from_this.
 Consider code like this:
   std::shared<SomeClass> ptr = std::make_shared<SomeClass>();
 
-Assume that `SomeClass`'s constructor uses shared_from_this. In this case, since
+Assume that SomeClass's constructor uses shared_from_this. In this case, since
 SomeClass is not yet owned by a std::shared_ptr, the shared_from_this call will
 not work as expected. There seems to no way around this that I can find.
 I wasn't aware of this issue. It was a real kick in the pants.
